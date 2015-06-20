@@ -1,0 +1,40 @@
+PODS:
+  - Block-KVO (2.2.3)
+  - DataBinding (0.1.0):
+    - Block-KVO (~> 2.2.3)
+    - JRSwizzle (~> 1.0)
+    - MTDates (~> 0.9.3)
+    - RKValueTransformers (~> 1.1.2)
+    - XCGLogger (~> 2.1.1)
+  - FBSnapshotTestCase (1.8.1)
+  - JRSwizzle (1.0)
+  - MTDates (0.9.4)
+  - RKValueTransformers (1.1.2)
+  - XCGLogger (2.1.1)
+
+DEPENDENCIES:
+  - Block-KVO (from `https://github.com/iMartinKiss/Block-KVO.git`)
+  - DataBinding (from `../`)
+  - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  Block-KVO:
+    :git: https://github.com/iMartinKiss/Block-KVO.git
+  DataBinding:
+    :path: "../"
+
+CHECKOUT OPTIONS:
+  Block-KVO:
+    :commit: 5a9320861a28caaa5e182bf9f7b3b4a45cb7522d
+    :git: https://github.com/iMartinKiss/Block-KVO.git
+
+SPEC CHECKSUMS:
+  Block-KVO: 2d335612191c0c4d63fe91cc78e735614c23eddf
+  DataBinding: 46a6bf934d78fafaa9a1496c2c763253552a64ca
+  FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  MTDates: 822d3bf7f9a091bd17c9a965f1815e7d99136c58
+  RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
+  XCGLogger: 8df921bcf88abbd511b887c8febde8163d624d81
+
+COCOAPODS: 0.37.1
