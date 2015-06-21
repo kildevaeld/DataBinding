@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AD5F4C01B3730DF007B66AE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD5F4BF1B3730DF007B66AE /* MapKit.framework */; };
 		5300DE1DE6413F1AC6DBF312 /* Pods_DataBinding_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CD2EB67F74191C887F60FE /* Pods_DataBinding_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		126660E3F9F22113BE56F403 /* Pods_DataBinding_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataBinding_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD5F4BF1B3730DF007B66AE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3CE883AAE23B907A196A4C43 /* Pods-DataBinding_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataBinding_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataBinding_Tests/Pods-DataBinding_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* DataBinding_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataBinding_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AD5F4C01B3730DF007B66AE /* MapKit.framework in Frameworks */,
 				5300DE1DE6413F1AC6DBF312 /* Pods_DataBinding_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +156,7 @@
 		AF74153F2ACE22828D9AB639 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AD5F4BF1B3730DF007B66AE /* MapKit.framework */,
 				F9CD2EB67F74191C887F60FE /* Pods_DataBinding_Example.framework */,
 				126660E3F9F22113BE56F403 /* Pods_DataBinding_Tests.framework */,
 			);

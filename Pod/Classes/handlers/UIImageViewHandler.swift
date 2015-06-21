@@ -9,7 +9,7 @@
 import Foundation
 
 
-class UIImageViewHandler : HandlerProtocol {
+class UIImageViewHandler : NSObject, HandlerProtocol {
     
     var type: AnyObject.Type? = nil
 

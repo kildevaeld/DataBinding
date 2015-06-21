@@ -8,11 +8,11 @@
 
 import Foundation
 
-public protocol ConverterProtocol {
+@objc public protocol ConverterProtocol {
     func convert (value: AnyObject, view:UIView, data: AnyObject) -> AnyObject?
 }
 
-public class Converter : ConverterProtocol {
+@objc public class Converter : NSObject, ConverterProtocol {
     
     var fn : (value: AnyObject, view: UIView, data: AnyObject) -> AnyObject?
 

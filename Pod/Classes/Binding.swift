@@ -10,10 +10,13 @@ import Foundation
 
 public class Binding : NSObject {
     
+    public var on: String?
+    public var recursive: Bool?
+    
     /** Property to bind to */
     public var to: String?
     /** Property to get value from */
-    public var prop: String?
+    @IBInspectable public var prop: String?
     /** Comma separated converter list */
     public var convert: String?
     /** Default value */
@@ -56,9 +59,9 @@ public class Binding : NSObject {
             }
         }
         
-        if !PropertyFinder.hasProperty(self.prop!, object: data) {
+        /*if !PropertyFinder.hasProperty(self.prop!, object: data) {
             return
-        }
+        }*/
         
         _data = data
         
@@ -66,7 +69,8 @@ public class Binding : NSObject {
         let handler = getHandler()
         
         if handler == nil {
-            DataBinding.log.error("no handler for \(self)")
+            let str = NSStringFromClass(self.view.dynamicType.self)
+            DataBinding.log.error("no handler for \(str)")
             return
         }
         

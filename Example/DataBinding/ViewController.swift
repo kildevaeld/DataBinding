@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class Blog : NSObject {
     dynamic var title: String?
@@ -14,6 +15,7 @@ class Blog : NSObject {
     dynamic var age: NSNumber?
     dynamic var image: [String]?
     dynamic var url: [String]? = ["<h1>Hello World</h1>"]
+    dynamic var location : CLLocation?
 }
 
 class ViewController: UIViewController {
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
         blog.title = "Test Title"
         blog.age = 4
         blog.image = ["Image", "Default"]
+        blog.location = CLLocation()
         
         self.view.bindData(blog)
         

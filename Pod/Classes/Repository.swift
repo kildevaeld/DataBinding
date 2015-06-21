@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-public protocol HandlerProtocol {
+@objc public protocol HandlerProtocol {
     var type : AnyObject.Type? { get }
     func setValue(value: AnyObject?, onView: UIView)
     
 }
 
-public protocol ObservableHandlerProtocol {
+@objc public protocol ObservableHandlerProtocol {
     func observe(view: UIView, fn: (value: AnyObject?) -> Void)
     func unobserve(view: UIView)
 }
@@ -58,6 +58,8 @@ class Repository : NSObject {
     static let shared = Repository()
     
     var handlers : Dictionary<String,HandlerProtocol> = Dictionary<String,HandlerProtocol>()
+
+    //var handlers : Dictionary<String,HandlerProtocol> = Dictionary<String,HandlerProtocol>()
     var converters : Dictionary<String,ConverterProtocol> = Dictionary<String, ConverterProtocol>()
     
     func registerHandler(type:AnyClass, handler: HandlerProtocol) -> HandlerProtocol {

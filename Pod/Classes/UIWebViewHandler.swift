@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UIWebViewHandler : HandlerProtocol {
+class UIWebViewHandler : NSObject, HandlerProtocol {
     
     var type: AnyObject.Type? = nil
     

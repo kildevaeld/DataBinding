@@ -29,9 +29,19 @@ func _transformValue(value: AnyObject, type: AnyClass ) -> AnyObject?  {
     
     if type === NSString.self  {
         var error : NSError?
+        
+        if let date = val as? NSDate {
+            out = date.description
+        }
+        
         RKValueTransformer.stringValueTransformer().transformValue(val, toValue: &out, ofClass: NSString.self, error: &error)
     
     } else if type === NSDate.self {
+        
+        if let date = val as? NSDate {
+            out = date
+        }
+        
         if value.dynamicType === NSNumber.self {
             
         }
@@ -47,6 +57,12 @@ func _transformValue(value: AnyObject, type: AnyClass ) -> AnyObject?  {
         
     } else if type === NSURL.self {
         RKValueTransformer.stringValueTransformer().transformValue(val, toValue: &out, ofClass: NSURL.self, error:nil)
+    } else if type === NSAttributedString.self {
+        if let attr = val as? NSAttributedString {
+            out = attr
+        } else if let str = val as? NSString {
+            out = NSAttributedString(string: str as String)
+        }
     }
     
     

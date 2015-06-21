@@ -24,7 +24,7 @@ func getDataBindingsForView(view: UIView) -> [Binding] {
  }
 
 extension UIView {
-    public var bind : Binding {
+    @IBInspectable public var bind : Binding {
         var b: AnyObject? = objc_getAssociatedObject(self, &kDataBindingKey)
         if b == nil {
             b = Binding(view: self)

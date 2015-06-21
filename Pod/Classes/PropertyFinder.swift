@@ -44,9 +44,22 @@ func getPropertyType (property: objc_property_t) -> String? {
         if range == nil {
             return nil
         }
-        out = out!.substringToIndex(range!.predecessor())
+
+        if range != out!.startIndex {
+            out = out!.substringToIndex(range!.predecessor())
+        } else {
+            out = nil
+        }
+        
+        
+        
+        // Check if generic
+        if (out != nil && out!.hasSuffix(">")) {
+            return nil
+        }
+
     }
-    //println(out)
+    
     return out == "" ? nil : out
 }
 
@@ -64,7 +77,7 @@ class PropertyFinder {
     static func hasProperty (prop: String, type: AnyClass) -> Bool {
         return self.propertyType(prop, type: type) != nil
     }
-    static func hasProperty (prop: String, object: AnyObject) -> Bool {
+    static func hasProperty (prop: String, object: NSObject) -> Bool {
         return self.propertyType(prop, object: object) != nil
     }
     
@@ -81,7 +94,7 @@ class PropertyFinder {
         return nil
     }
     
-    static func propertyType(prop: String, object:AnyObject)  -> AnyClass? {
+    static func propertyType(prop: String, object:NSObject)  -> AnyClass? {
         let properties  = PropertyFinder.propertiesForObject(object)
         
         for p in properties {
@@ -93,11 +106,14 @@ class PropertyFinder {
         return nil
     }
     
-    static func propertiesForObject(obj: AnyObject) -> [Result] {
+    static func propertiesForObject(obj: NSObject?) -> [Result] {
+        if obj == nil {
+            return []
+        }
         let mirrors = reflect(obj)
         var out = listProperties(mirrors)
         
-        out += propertiesForClass(obj.dynamicType.self)
+        out += propertiesForClass(obj!.dynamicType.self)
         
         return out
     }
@@ -112,7 +128,7 @@ class PropertyFinder {
                 let (index, mir) = mirror[i]
                 let valueType = mir.valueType
                 var value = mir.value
-            
+                
                 var type: AnyClass?
                 
                 if valueType is String.Type || valueType is String?.Type {
@@ -123,6 +139,8 @@ class PropertyFinder {
                     type = NSDate.self
                 } else if valueType is UIImage.Type || valueType is UIImage?.Type {
                     type = UIImage.self
+                } else if valueType is NSString.Type || valueType is NSString?.Type {
+                    type = NSString.self
                 } else {
                     type = AnyClass.self
                 }
@@ -142,6 +160,7 @@ class PropertyFinder {
         var results : [Result] = []
         
         var count: UInt32 = 0
+    
         let properties = class_copyPropertyList(type, &count)
         
         for (var i = 0; UInt32(i) < count; i++) {
@@ -155,12 +174,23 @@ class PropertyFinder {
                 let propType = getPropertyType(property)
                 
                 if propType != nil && name != nil {
-                    results.append(Result(name: name!,type: NSClassFromString(propType!)))
+                    
+                    let type : AnyClass! = NSClassFromString(propType)
+                    
+                    if type == nil {
+                        continue
+                    }
+                    results.append(Result(name: name!,type: type))
                 }
-                
-                
             }
         }
+        
+        let superClass : AnyClass! = class_getSuperclass(type)
+        
+        if superClass != nil {
+            results += propertiesForClass(superClass)
+        }
+        
         
        return results
     }

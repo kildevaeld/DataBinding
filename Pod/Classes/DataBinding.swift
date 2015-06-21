@@ -8,7 +8,7 @@
 
 import Foundation
 import XCGLogger
-
+import MapKit;
 
 public class DataBinding : NSObject {
     private static var _log: XCGLogger?
@@ -38,6 +38,12 @@ public class DataBinding : NSObject {
         Repository.shared.registerConverter(name, converter: converter)
     }
     
+    public static func registerConverter(name: String, convert: (value: AnyObject, view: UIView, data: AnyObject) -> AnyObject? ) {
+        
+        let converter = Converter(fn: convert)
+        self.registerConverter(name, converter: converter)
+    }
+    
     public static func registerHandlers() {
         
         self.registerHandler(UILabel.self, handler:Handler(type: NSString.self,setValue: { (value, onView) -> Void in
@@ -48,13 +54,15 @@ public class DataBinding : NSObject {
                 label.text = value as? String
             }
         }))
-        
+    
+                
         self.registerHandler(UISlider.self, handler: UISliderHandler())
         self.registerHandler(UITextField.self, handler: UITextFieldHandler())
         self.registerHandler(UIImageView.self, handler: UIImageViewHandler())
         self.registerHandler(UIWebView.self, handler: UIWebViewHandler())
         
-        
+        self.registerHandler(UIButton.self, handler: UIButtonHandler())
+        self.registerHandler(MKMapView.self, handler: MKMapViewHandler())
         self.registerConverter("array", converter: Converter(fn: { (value, view, data) -> AnyObject? in
             var out: AnyObject? = value
             if let array = value as? NSArray {
@@ -70,7 +78,7 @@ public class DataBinding : NSObject {
             return out;
         }))
         
-        
+        UIViewController.swizzle()
     }
     
 }

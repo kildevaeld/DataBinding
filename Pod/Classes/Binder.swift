@@ -9,7 +9,7 @@
 import Foundation
 
 import Block_KVO
-
+import CoreData
 
 public class Binder : NSObject {
     let data : NSObject
@@ -27,12 +27,23 @@ public class Binder : NSObject {
         self.view = view
         super.init()
         
-        let value : AnyObject? = getValue(obj, prop: prop)
-        self.setValue(value)
+        if prop == "@" {
+            self.setValue(obj)
+        } else {
+            let value : AnyObject? = getValue(obj, prop: prop)
+            self.setValue(value)
+        }
+        
         
     }
     
     func observe () {
+        
+        if self.keyPath == "@" {
+            self.setValue(self.data)
+            return
+        }
+        
         self.observeProperty("self.data." + self.keyPath, withBlock: { (s, old, new) -> Void in
             self.setValue(new)
         });
@@ -52,7 +63,7 @@ public class Binder : NSObject {
         }
     }
     
-    private func getValue (data: AnyObject, prop: String) -> AnyObject? {
+    private func getValue (data: NSObject, prop: String) -> AnyObject? {
         
         if let dict = data as? NSDictionary {
             if let obj: AnyObject? = dict.objectForKey(prop) {
@@ -60,9 +71,11 @@ public class Binder : NSObject {
             }
             
         } else {
-            if PropertyFinder.hasProperty(prop, object: data) {
+            
+            
+            //if PropertyFinder.hasProperty(prop, object: data) {
                 return data.valueForKeyPath(prop)
-            }
+            //}
         }
         
         DataBinding.log.error("obj \(data) does not have property: \(prop)")
@@ -82,7 +95,7 @@ public class Binder : NSObject {
             
             for converter in converters {
                 val = converter.convert(val!, view: self.view, data: data)
-                if val == nil { continue }
+                if val == nil { break }
             }
             
             if val != nil {
@@ -96,7 +109,7 @@ public class Binder : NSObject {
     }
     
     deinit {
-        println("deinit")
+        
         self.unobserve()
     }
 }
