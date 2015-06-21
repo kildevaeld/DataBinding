@@ -46,6 +46,11 @@ extension UIView {
         for binding in bindings {
             binding.bindData(data)
         }
+        self.didBindData(data)
+    }
+    
+    public func didBindData(data: AnyObject?) {
+        
     }
 }
 
