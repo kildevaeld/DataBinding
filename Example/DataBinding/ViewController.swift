@@ -10,9 +10,10 @@ import UIKit
 
 class Blog : NSObject {
     dynamic var title: String?
-    dynamic var imageName: String = "Image"
+    dynamic var imageName: String?
     dynamic var age: NSNumber?
-    dynamic var image: UIImage?
+    dynamic var image: [String]?
+    dynamic var url: [String]? = ["<h1>Hello World</h1>"]
 }
 
 class ViewController: UIViewController {
@@ -24,7 +25,7 @@ class ViewController: UIViewController {
         let blog = Blog()
         blog.title = "Test Title"
         blog.age = 4
-        blog.image = UIImage(named: "Image")
+        blog.image = ["Image", "Default"]
         
         self.view.bindData(blog)
         
@@ -34,17 +35,10 @@ class ViewController: UIViewController {
         dispatch_after(time, dispatch_get_main_queue(), {
             println("delay")
             blog.title = "A new cool title"
-            blog.imageName = "Default"
+            blog.imageName = "Image"
             //self.view.bindData(Blog())
         });
         
-        delta = 8 * Int64(NSEC_PER_SEC)
-        time = dispatch_time(DISPATCH_TIME_NOW, delta)
-        dispatch_after(time, dispatch_get_main_queue(), {
-          //self.view.bindData(Blog())
-        })
-        // Do any additional setup after loading the view, typically from a nib.
-    
     }
 
     override func didReceiveMemoryWarning() {

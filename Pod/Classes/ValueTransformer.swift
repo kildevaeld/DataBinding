@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import RKValueTransformers
 
 func _transformValue(value: AnyObject, type: AnyClass ) -> AnyObject?  {
@@ -44,6 +45,8 @@ func _transformValue(value: AnyObject, type: AnyClass ) -> AnyObject?  {
             out = date.timeIntervalSince1970 as NSNumber
         }
         
+    } else if type === NSURL.self {
+        RKValueTransformer.stringValueTransformer().transformValue(val, toValue: &out, ofClass: NSURL.self, error:nil)
     }
     
     

@@ -38,6 +38,7 @@
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="title"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.kind" value="DataBinding_Example.Blog"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UA1-ht-G2S">
@@ -57,18 +58,30 @@
                                     <constraint firstAttribute="width" constant="300" id="pyw-qw-S7R"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="imageName"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.convert" value="to_image"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="image"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="bind.defaultValue" value="Default"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Idz-NL-tmo">
+                                <rect key="frame" x="93" y="445" width="491" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="eBC-1K-nUK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="url"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.convert" value="array"/>
+                                </userDefinedRuntimeAttributes>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="f7D-yW-2Hm" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="2iT-Bb-bjZ"/>
                             <constraint firstItem="d3Q-zx-xLE" firstAttribute="top" secondItem="0y6-SO-Dq3" secondAttribute="bottom" constant="40" id="7n0-6c-4ds"/>
                             <constraint firstItem="f7D-yW-2Hm" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="25" id="93o-Wf-Xg4"/>
+                            <constraint firstItem="Idz-NL-tmo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="77" id="9n0-KP-lXd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0y6-SO-Dq3" secondAttribute="trailing" constant="25" id="Adu-wc-YbM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Idz-NL-tmo" secondAttribute="trailing" id="CwV-jH-qWQ"/>
                             <constraint firstItem="lH0-JO-SZa" firstAttribute="top" secondItem="f7D-yW-2Hm" secondAttribute="bottom" constant="33" id="DCU-b1-hxu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="f7D-yW-2Hm" secondAttribute="trailing" constant="25" id="Ijd-lh-MJ2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lH0-JO-SZa" secondAttribute="trailing" constant="25" id="O6o-hN-Kj5"/>
@@ -78,6 +91,7 @@
                             <constraint firstItem="0y6-SO-Dq3" firstAttribute="top" secondItem="UA1-ht-G2S" secondAttribute="bottom" constant="55" id="Rg5-ng-xqi"/>
                             <constraint firstItem="UA1-ht-G2S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="25" id="bbR-oc-q3V"/>
                             <constraint firstItem="UA1-ht-G2S" firstAttribute="top" secondItem="lH0-JO-SZa" secondAttribute="bottom" constant="8" id="bqx-0b-b78"/>
+                            <constraint firstItem="Idz-NL-tmo" firstAttribute="top" secondItem="d3Q-zx-xLE" secondAttribute="bottom" constant="25" id="eBb-b2-U5B"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="d3Q-zx-xLE" secondAttribute="bottom" constant="180" id="k0n-Mh-nU4"/>
                             <constraint firstItem="d3Q-zx-xLE" firstAttribute="top" secondItem="0y6-SO-Dq3" secondAttribute="bottom" constant="40" id="mwp-av-3e0"/>
                             <constraint firstAttribute="centerX" secondItem="d3Q-zx-xLE" secondAttribute="centerX" constant="87" id="nbM-au-x44"/>

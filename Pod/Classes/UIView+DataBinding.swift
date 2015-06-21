@@ -12,10 +12,8 @@ import ObjectiveC
 
 
 var kDataBindingKey : UInt8 = 0
-let kDataBindingDataKey = "fa_data_binding_data"
 
-
-func getDataBindingsForView(view: UIView) -> [DataBinding] {
+func getDataBindingsForView(view: UIView) -> [Binding] {
     
     var array = [view.bind]
     
@@ -26,16 +24,16 @@ func getDataBindingsForView(view: UIView) -> [DataBinding] {
  }
 
 extension UIView {
-    public var bind : DataBinding {
+    public var bind : Binding {
         var b: AnyObject? = objc_getAssociatedObject(self, &kDataBindingKey)
         if b == nil {
-            b = DataBinding(view: self)
+            b = Binding(view: self)
             
             objc_setAssociatedObject(self, &kDataBindingKey, b,  objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
             
         }
         
-        return b! as! DataBinding
+        return b! as! Binding
     }
     
     public var data : AnyObject? {
@@ -48,10 +46,7 @@ extension UIView {
         for binding in bindings {
             binding.bindData(data)
         }
-        
     }
-    
-    
 }
 
 

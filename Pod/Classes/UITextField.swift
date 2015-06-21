@@ -14,13 +14,13 @@ class UITextFieldHandler : Handler, ObservableHandlerProtocol {
     var observerFn : ((value: AnyObject?) -> Void)?
     
     init () {
-        super.init(setValue: { (value, onView) -> Void in
+        super.init(type: NSString.self, setValue: { (value, onView) -> Void in
             if value == nil { return }
             
             let slider = onView as! UITextField
             slider.text = value as! String
             
-            }, type: NSString.self)
+            })
     }
     
     func observe(view: UIView, fn: (value: AnyObject?) -> Void) {
