@@ -46,6 +46,10 @@ public class DataBinding : NSObject {
     
     public static func registerHandlers() {
         
+        struct TokenHolder {
+            static var token: dispatch_once_t = 0;
+        }
+        
         self.registerHandler(UILabel.self, handler:Handler(type: NSString.self,setValue: { (value, onView) -> Void in
             let label = onView as! UILabel
             if value == nil {
@@ -78,7 +82,13 @@ public class DataBinding : NSObject {
             return out;
         }))
         
-        UIViewController.swizzle()
+        
+        
+        dispatch_once(&TokenHolder.token) {
+            UIViewController.swizzle()
+        }
+        
+        
     }
     
 }
