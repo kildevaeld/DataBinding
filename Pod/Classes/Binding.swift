@@ -16,15 +16,17 @@ public class Binding : NSObject {
     /** Property to bind to */
     public var to: String?
     /** Property to get value from */
-    @IBInspectable public var prop: String?
+    public var prop: String?
     /** Comma separated converter list */
     public var convert: String?
     /** Default value */
     public var defaultValue: String?
     /** Hide the value on no value */
     public var hideOnNoValue: Bool = false
-    
+    /** Only bind on the kind if object */
     public var kind: String?
+    /** Format the out */
+    public var format: String?
     
     public let view : UIView
     
@@ -79,6 +81,7 @@ public class Binding : NSObject {
         
         self.binder!.converters = getConverters()
         self.binder!.defaultValue = self.defaultValue
+        self.binder!.format = self.format
         
         self.binder!.observe()
         

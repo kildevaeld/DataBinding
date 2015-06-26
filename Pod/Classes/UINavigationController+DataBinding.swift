@@ -26,7 +26,10 @@ extension UINavigationController {
         
         self.pushViewController(viewController, animated: animated)
         if let vc = viewController as? FADataRepresentationProtocol {
-            vc.arrangeWithData(withData)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                vc.arrangeWithData(withData)
+            })
+            
         }
         
         objc_setAssociatedObject(viewController, &kDidPushKey, 0, objc_AssociationPolicy(OBJC_ASSOCIATION_COPY_NONATOMIC))

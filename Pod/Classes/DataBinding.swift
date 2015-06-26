@@ -30,6 +30,7 @@ public class DataBinding : NSObject {
         }
     }
     
+    
     public static func registerHandler(type: AnyClass, handler: HandlerProtocol) {
         Repository.shared.registerHandler(type, handler: handler)
     }
@@ -67,6 +68,7 @@ public class DataBinding : NSObject {
         
         self.registerHandler(UIButton.self, handler: UIButtonHandler())
         self.registerHandler(MKMapView.self, handler: MKMapViewHandler())
+        
         self.registerConverter("array", converter: Converter(fn: { (value, view, data) -> AnyObject? in
             var out: AnyObject? = value
             if let array = value as? NSArray {
@@ -77,6 +79,11 @@ public class DataBinding : NSObject {
                 }
             } else if let set = value as? NSSet {
                 out = set.anyObject()
+            } else if let set = value as? NSOrderedSet {
+                if set.count > 0 {
+                    out = set.firstObject
+                }
+                
             }
             
             return out;

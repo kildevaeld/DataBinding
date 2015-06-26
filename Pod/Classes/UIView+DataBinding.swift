@@ -11,7 +11,8 @@ import UIKit
 import ObjectiveC
 
 
-var kDataBindingKey : UInt8 = 0
+var kDataBindingKey = "softshag.binding.bindkey"
+var kDataViewIDKey = "softshag.binding.viewid"
 
 func getDataBindingsForView(view: UIView) -> [Binding] {
     
@@ -20,11 +21,25 @@ func getDataBindingsForView(view: UIView) -> [Binding] {
     for view in view.subviews {
         array += getDataBindingsForView(view as! UIView)
     }
-    return array
+    return array.filter { $0.prop != nil }
  }
 
 extension UIView {
-    @IBInspectable public var bind : Binding {
+    
+    struct IdGen {
+        static var current_id : Double = 0
+        static let lock : NSLock = NSLock()
+        static func getID (prefix: String = "view") -> String {
+            let out : Double
+            self.lock.lock()
+            out = ++current_id
+            self.lock.unlock()
+            return "\(prefix)\(out)"
+        }
+    }
+    
+    
+    public var bind : Binding {
         var b: AnyObject? = objc_getAssociatedObject(self, &kDataBindingKey)
         if b == nil {
             b = Binding(view: self)
@@ -36,21 +51,52 @@ extension UIView {
         return b! as! Binding
     }
     
+    public var viewID : String? {
+        get {
+            var b: AnyObject? = objc_getAssociatedObject(self, &kDataViewIDKey)
+            if b == nil {
+                b = IdGen.getID()
+                objc_setAssociatedObject(self, &kDataViewIDKey, b, objc_AssociationPolicy(OBJC_ASSOCIATION_COPY_NONATOMIC))
+            }
+            return b as? String
+        }
+        set (id) {
+            objc_setAssociatedObject(self, &kDataViewIDKey, id, objc_AssociationPolicy(OBJC_ASSOCIATION_COPY_NONATOMIC))
+        }
+    }
+    
     public var data : AnyObject? {
         return self.bind.data
     }
     
+    
     public func bindData(data: NSObject) {
         let bindings = getDataBindingsForView(self)
         
+        let bData = self.willBindData(data)
+        
         for binding in bindings {
-            binding.bindData(data)
+            binding.bindData(bData)
         }
-        self.didBindData(data)
+        self.didBindData(bData)
     }
     
-    public func didBindData(data: AnyObject?) {
+    public func unbindData() {
+        let bindings = getDataBindingsForView(self)
         
+        
+        for binding in bindings {
+            binding.unbindData()
+        }
+
+    }
+    
+    public func didBindData(data: NSObject) {
+        
+    }
+    
+    public func willBindData(data: NSObject) -> NSObject {
+        return data
     }
 }
 

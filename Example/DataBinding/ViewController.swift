@@ -16,6 +16,7 @@ class Blog : NSObject {
     dynamic var image: [String]?
     dynamic var url: [String]? = ["<h1>Hello World</h1>"]
     dynamic var location : CLLocation?
+    dynamic var date: NSDate = NSDate()
 }
 
 class ViewController: UIViewController {
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
         blog.age = 4
         blog.image = ["Image", "Default"]
         blog.location = CLLocation()
+        
         
         self.view.bindData(blog)
         

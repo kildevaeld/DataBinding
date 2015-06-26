@@ -14,6 +14,7 @@ import CoreData
 public class Binder : NSObject {
     let data : NSObject
     let keyPath: String
+    var format: String?
     let handler: HandlerProtocol
     let view: UIView
     
@@ -25,6 +26,7 @@ public class Binder : NSObject {
         self.keyPath = prop
         self.handler = handler
         self.view = view
+        
         super.init()
         
         if prop == "@" {
@@ -98,6 +100,10 @@ public class Binder : NSObject {
                 if val == nil { break }
             }
             
+            if self.format != nil {
+                val = _formatValue(val!, self.format!)
+            }
+            
             if val != nil {
                 if handler.type != nil {
                     val = _transformValue(val!, handler.type!)
@@ -109,7 +115,7 @@ public class Binder : NSObject {
     }
     
     deinit {
-        
+        println("deinit \(self.view.viewID)")
         self.unobserve()
     }
 }

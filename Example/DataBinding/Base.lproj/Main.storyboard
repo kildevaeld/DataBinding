@@ -38,8 +38,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="title"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.prop" value="date"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="bind.kind" value="DataBinding_Example.Blog"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="bind.format" value="DD MM - YYYY"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UA1-ht-G2S">
