@@ -185,6 +185,8 @@ class PropertyFinder {
             }
         }
         
+        free(properties)
+        
         let superClass : AnyClass! = class_getSuperclass(type)
         
         if superClass != nil {
