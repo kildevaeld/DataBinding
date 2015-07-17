@@ -28,7 +28,7 @@ public class Binding : NSObject {
     /** Format the out */
     public var format: String?
     
-    public var sync: Bool = true
+    public var sync: Bool = false
     
     public let view : UIView
     

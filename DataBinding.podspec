@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DataBinding"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "A short description of DataBinding."
   s.description      = <<-DESC
                        An optional longer description of DataBinding
