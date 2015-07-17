@@ -75,10 +75,10 @@ public class Binder : NSObject {
         } else {
             
             if prop.rangeOfString(".") != nil {
-                return data.valueForKey(prop)
+                return data.valueForKeyPath(prop)
             } else {
                 if PropertyFinder.hasProperty(prop, object: data) {
-                    return data.valueForKeyPath(prop)
+                    return data.valueForKey(prop)
                 }
             }
             
