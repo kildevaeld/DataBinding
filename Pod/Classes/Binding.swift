@@ -28,6 +28,8 @@ public class Binding : NSObject {
     /** Format the out */
     public var format: String?
     
+    public var sync: Bool = true
+    
     public let view : UIView
     
     /** The binder reference */
@@ -83,7 +85,11 @@ public class Binding : NSObject {
         self.binder!.defaultValue = self.defaultValue
         self.binder!.format = self.format
         
-        self.binder!.observe()
+        
+        if self.sync {
+            self.binder!.observe()
+        }
+        
         
         
     }
