@@ -74,10 +74,14 @@ public class Binder : NSObject {
             
         } else {
             
+            if prop.rangeOfString(".") != nil {
+                return data.valueForKey(prop)
+            } else {
+                if PropertyFinder.hasProperty(prop, object: data) {
+                    return data.valueForKeyPath(prop)
+                }
+            }
             
-            //if PropertyFinder.hasProperty(prop, object: data) {
-                return data.valueForKeyPath(prop)
-            //}
         }
         
         DataBinding.log.error("obj \(data) does not have property: \(prop)")
