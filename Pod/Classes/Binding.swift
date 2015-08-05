@@ -8,6 +8,33 @@
 
 import Foundation
 
+
+func getValue (data: NSObject, prop: String) -> AnyObject? {
+    
+    if let dict = data as? NSDictionary {
+        if let obj: AnyObject? = dict.objectForKey(prop) {
+            return obj
+        }
+        
+    } else {
+        
+        if prop.rangeOfString(".") != nil {
+            return data.valueForKeyPath(prop)
+        } else {
+            if PropertyFinder.hasProperty(prop, object: data) {
+                return data.valueForKey(prop)
+            }
+        }
+        
+    }
+    
+    DataBinding.log.error("obj \(data) does not have property: \(prop)")
+    
+    return nil
+    
+}
+
+
 public class Binding : NSObject {
     
     public var on: String?
@@ -27,8 +54,13 @@ public class Binding : NSObject {
     public var kind: String?
     /** Format the out */
     public var format: String?
-    
+    /** Two sync */
     public var sync: Bool = false
+    /** Show if not nil */
+    public var show: String?
+    /** Hide if not nil */
+    public var hide: String?
+    
     
     public let view : UIView
     
@@ -49,6 +81,16 @@ public class Binding : NSObject {
         
         if self.data != nil {
             self.unbindData()
+        }
+        
+        if self.show != nil {
+            let val: AnyObject? = getValue(data, self.show!)
+            if val == nil {
+                self.view.hidden = true
+                return
+            } else {
+                self.view.hidden = false
+            }
         }
         
         // No prop, no map
@@ -85,13 +127,8 @@ public class Binding : NSObject {
         self.binder!.defaultValue = self.defaultValue
         self.binder!.format = self.format
         
-        
-        if self.sync {
-            self.binder!.observe()
-        }
-        
-        
-        
+        self.binder!.observe(once: !self.sync)
+    
     }
     
     public func unbindData() {

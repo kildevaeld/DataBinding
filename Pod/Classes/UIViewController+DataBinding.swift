@@ -27,6 +27,7 @@ extension UIViewController {
         self.presentViewController(viewControllerToPresent, animated: flag) { () -> Void in
             
             if let vc = viewControllerToPresent as? FADataRepresentationProtocol {
+                
                 vc.arrangeWithData(withData as! NSObject)
             }
             

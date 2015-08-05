@@ -21,7 +21,7 @@ func getDataBindingsForView(view: UIView) -> [Binding] {
     for view in view.subviews {
         array += getDataBindingsForView(view as! UIView)
     }
-    return array.filter { $0.prop != nil }
+    return array.filter { $0.prop != nil || $0.show != nil || $0.hide != nil }
  }
 
 extension UIView {

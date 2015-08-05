@@ -12,7 +12,7 @@ import UIKit
 var kDidPushKey : UInt8 = 1
 
 @objc public protocol FADataRepresentationProtocol {
-    var data: AnyObject! { get }
+    var data: AnyObject? { get }
     func arrangeWithData(data: NSObject)
     func arrange()
 }
@@ -26,9 +26,7 @@ extension UINavigationController {
         
         self.pushViewController(viewController, animated: animated)
         if let vc = viewController as? FADataRepresentationProtocol {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                vc.arrangeWithData(withData)
-            })
+            vc.arrangeWithData(withData)
             
         }
         

@@ -29,31 +29,28 @@ public class Binder : NSObject {
         
         super.init()
         
-        if prop == "@" {
-            self.setValue(obj)
-        } else {
-            let value : AnyObject? = getValue(obj, prop: prop)
-            self.setValue(value)
-        }
-        
-        
     }
     
-    func observe () {
+    func observe (once: Bool = true) {
         
         if self.keyPath == "@" {
             self.setValue(self.data)
             return
         }
         
-        self.observeProperty("self.data." + self.keyPath, withBlock: { (s, old, new) -> Void in
-            self.setValue(new)
-        });
-        
-        if let observable = handler as? ObservableHandlerProtocol {
-            observable.observe(self.view, fn: { (value) -> Void in
-                self.data.setValue(value, forKeyPath: self.keyPath)
-            })
+        if once == true {
+            let value : AnyObject? = getValue(self.data, prop: self.keyPath)
+            self.setValue(value)
+        } else {
+            self.observeProperty("self.data." + self.keyPath, withBlock: { (s, old, new) -> Void in
+                self.setValue(new)
+            });
+            
+            if let observable = handler as? ObservableHandlerProtocol {
+                observable.observe(self.view, fn: { (value) -> Void in
+                    self.data.setValue(value, forKeyPath: self.keyPath)
+                })
+            }
         }
         
         
@@ -66,27 +63,28 @@ public class Binder : NSObject {
     }
     
     private func getValue (data: NSObject, prop: String) -> AnyObject? {
-        
+        var result: AnyObject? = nil
         if let dict = data as? NSDictionary {
             if let obj: AnyObject? = dict.objectForKey(prop) {
-                return obj
+                result = obj
             }
             
         } else {
             
-            if prop.rangeOfString(".") != nil {
-                return data.valueForKeyPath(prop)
+            /*if prop.rangeOfString(".") != nil {
+                
             } else {
                 if PropertyFinder.hasProperty(prop, object: data) {
-                    return data.valueForKey(prop)
+                    result = data.valueForKey(prop)
                 }
-            }
+            }*/
+            result = data.valueForKeyPath(prop)
             
         }
         
         DataBinding.log.error("obj \(data) does not have property: \(prop)")
         
-        return nil
+        return result
         
     }
     
@@ -119,7 +117,6 @@ public class Binder : NSObject {
     }
     
     deinit {
-        println("deinit \(self.view.viewID)")
         self.unobserve()
     }
 }
